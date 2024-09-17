@@ -1,26 +1,26 @@
-﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
-public class CameraController : MonoBehaviour {
+public class CameraController : MonoBehaviour
+{
+ // Reference to the player GameObject.
+ public GameObject player;
 
-	// store a public reference to the Player game object, so we can refer to it's Transform
-	public GameObject player;
+ // The distance between the camera and the player.
+ private Vector3 offset;
 
-	// Store a Vector3 offset from the player (a distance to place the camera from the player at all times)
-	private Vector3 offset;
+ // Start is called before the first frame update.
+ void Start()
+    {
+ // Calculate the initial offset between the camera's position and the player's position.
+        offset = transform.position - player.transform.position; 
+    }
 
-	// At the start of the game..
-	void Start ()
-	{
-		// Create an offset by subtracting the Camera's position from the player's position
-		offset = transform.position - player.transform.position;
-	}
-
-	// After the standard 'Update()' loop runs, and just before each frame is rendered..
-	void LateUpdate ()
-	{
-		// Set the position of the Camera (the game object this script is attached to)
-		// to the player's position, plus the offset amount
-		transform.position = player.transform.position + offset;
-	}
+ // LateUpdate is called once per frame after all Update functions have been completed.
+ void LateUpdate()
+    {
+ // Maintain the same offset between the camera and player throughout the game.
+        transform.position = player.transform.position + offset;  
+    }
 }
